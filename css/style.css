@@ -1,0 +1,773 @@
+body{
+    font: 15px/1.5 Book Antiqua, Times, serif;
+    padding: 0;
+    margin: 0;
+    background-color: #fffeea /*#ffffff*/ /*#fffab3*/ /*#e8c15f*/;
+}
+/*Global*/
+.container{
+    width: 80%;
+    margin:auto;
+    overflow: hidden;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+.button_1{
+    height: 38px;
+    background: goldenrod;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+}
+
+.button_1:hover{
+    background: rgb(255, 193, 37)
+}
+/* Header*/
+header{
+    background: #193300;
+    color: #ffffff;
+    padding-top: 20px;
+    min-height: 70px;
+    border-bottom: goldenrod 3px solid;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+header li{
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+header nav{
+    float: right;
+    margin-top: 10px;
+}
+
+header #branding {
+    float: left;
+}
+
+header #branding h1{
+    margin: 0;
+    font-size: 33px;
+}
+
+header .highlight{
+    font-family: /*Lucida Calligraphy*/ Monotype Corsiva, cursive;
+    font-size: 45px;
+    font-style: italic;
+    color:goldenrod;
+    font-weight: normal;
+    text-shadow:1px 1px 3px goldenrod;
+}
+header .current a{
+    color:goldenrod;
+    font-weight: bold;
+}
+
+header a:hover{
+    color:goldenrod;
+    font-weight:300;
+    font-size: 17px;
+    text-shadow:1px 1px 1px goldenrod;
+    transition-duration: 0.3s;
+}
+
+/* The Dropdown */
+.dropdown {
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+  
+.navbar a:hover, .dropdown:hover .dropbtn {
+    color:goldenrod;
+    font-weight:300;
+    font-size: 17px;
+    text-shadow:1px 1px 2px goldenrod;
+    transition-duration: 0.4s;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #224600 /*#f9f9f9*/;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    float: none;
+    color: whitesmoke;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+  
+.dropdown-content a:hover {
+    background-color: #306400 /*#ddd*/;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*Showcase*/
+#showcase{
+    min-height: 600px;
+    background: url('../images/showcase.jpg') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 5%;
+    text-align: center;
+    border-bottom: goldenrod 3px solid;
+}
+
+#showcase h1{
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 55px;
+    color: #193300;
+}
+
+#showcase .highlight{
+    color: rgba(255, 183, 0, 0.945);
+    text-shadow: 5px 4px 5px #193300, 5px 4px 5px goldenrod;
+}
+
+#showcase p{
+    font-size: 20px;
+}
+
+/* Newsletter */
+#newsletter{
+    padding: 15px;
+    color: white;
+    background: #193300;
+    border-bottom: goldenrod 3px solid;
+}
+
+#newsletter h1{
+    float: left;
+    font-size: 25px;
+}
+
+#newsletter form{
+    float: right;
+    margin-top: 15px;
+}
+
+#newsletter input[type='email']{
+    padding: 4px;
+    height: 25px;
+    width: 250px;
+}
+
+/* Heading and introduction */
+
+
+#heading{
+    text-align: center;
+    padding: 15px;
+    font-size: 25px;
+}
+
+#heading .highlight{
+    color: goldenrod;
+    font-family: Monotype Corsiva, cursive;
+    font-size: 45px;
+    font-style: italic;
+    text-shadow:1.5px 1.5px 2px #193300;
+}
+
+#wrapper{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 1em;
+}
+
+#introduction {
+    padding: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 25px;
+    line-height: 1.7;
+}
+
+#introduction #slideshow_para{
+    /* margin-right: 30%; */
+    grid-row: 1/3;
+    align-self: center;
+}
+
+#introduction #slideshow{
+    /* position: absolute;
+    right: 50px; */
+    width: 350px;
+    /* float: right; */
+    /* margin: -100px 0px 0px 0px; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+/* 
+#introduction #streets_image{
+    z-index: 2;
+}
+
+#introduction #architecture_image{
+    z-index: 1;
+} */
+
+
+/* Boxes */
+
+#boxes{
+    margin-top: 20px;
+    min-height: 600px;
+    background: url('../images/red_fort_image.png') no-repeat fixed;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    border-top: goldenrod 3px solid;
+    border-bottom: goldenrod 3px solid;   
+}
+
+#boxes .boxintro{
+    padding: 30px;
+    font-size: 25px;
+}
+
+#boxes .container{
+    width: 90%;
+    margin-bottom: 17px;
+}
+
+#boxes .box{
+    float: left;
+    text-align: center;
+    width: 30%;
+    height: 380px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius: 25px;
+    margin: 0.5%;
+    margin-bottom: 2%;
+}
+
+#boxes .box img{
+    width: 150px;
+}
+
+#boxes .box h3{
+    font-size: 22px;
+    color: #193300;
+}
+
+#boxes .box p{
+    font-size: 18px;
+    color: black;
+}
+
+#boxes .box:hover{
+    box-shadow: 0px 8px 16px 8px rgba(0,0,0,0.4);
+    transition-duration: 0.5s;
+    font-weight: bold;
+}
+
+#boxes .box:hover h3{
+    font-size: 25px;
+    text-shadow:1.5px 1.5px 2px goldenrod;
+    transition-duration: 0.5s;
+}
+
+#boxes .box:hover img{
+    width: 160px;
+    transition-duration: 0.5s;
+}
+
+/* Body */
+
+#body{
+    padding: 30px;
+    font-size: 22px;
+}
+
+#body p{
+    text-align: center;
+}
+
+/* map */
+#map_and_header{
+   border-top: goldenrod 5px solid;
+   padding: 30px;
+}
+
+#map_and_header h1{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 0px;
+}
+
+#map_and_header iframe{
+    height: 400px;
+    width: 90%;
+    border: 5px solid #193300;
+}
+
+/*Footer*/
+
+footer{
+    padding: 20px;
+    padding-bottom: 40px;
+    margin-top: 20px;
+    color:goldenrod;
+    background-color: #193300;
+    text-align: center;
+}
+
+footer #contactus{
+    float:left;
+    text-align: left;
+}
+
+footer #copyright{
+    float: center;
+}
+
+footer #last_updated{
+    float: right;
+}
+
+/*about us*/
+.title{
+    background-color:#DAA520; 
+    text-align: center; 
+    font-size: 3em;
+}
+  
+.para{
+    margin-left: 3em; 
+    margin-right: 3em;
+    font-size:1.8em;
+}
+
+.para1{
+    margin-left: 3em; 
+    margin-right: 3em;
+    font-size:1.8em;
+    text-align: center;
+}
+  
+.name{
+    font-size:2em
+}
+
+.desig{
+    text-align: center;
+    background-color:#193300;
+    color:#FFFFFF;
+    font-size:2em;
+}
+
+.table1{
+    width:100%;
+    border-spacing: 25px;
+}
+
+.desc{
+    font-size:20px; 
+    text-align: center;
+}
+
+.table2{
+    width:100%;
+    border-spacing: 40px;
+}
+
+.imgc{
+    text-align: center;
+    height: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+
+#tourimg{
+    width:400px;
+    height:400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/*register*/
+.hstyle{
+    text-align: center;
+}
+  
+.form{
+    margin-left: 3em; 
+    margin-right: 3em;
+    font-size:20;
+}
+
+/*responses*/
+.message{
+    margin-left: 3em; 
+    margin-right: 3em; 
+    font-size:1.5em;
+}
+
+.thanks{
+    background-color:#DAA520; 
+    text-align: center; 
+    font-size: 3em;
+}
+
+.parab{
+    margin-left: 3em; 
+    margin-right: 3em; 
+    font-size:1.8em; 
+    font-weight: bold;
+}
+        
+.parac{
+    margin-left: 3em; 
+    margin-right: 3em; 
+    font-size:1.8em;
+}
+
+@media(max-width:1158px){
+    #boxes .box{
+        float: none;
+        width: 75%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #boxes .container a:link,
+    #boxes .container a:visited{
+        text-decoration: none;
+    }
+}
+
+@media(max-width: 1060px){
+    #slideshow_para{
+        font-size: 20px;
+    }
+
+    #body{
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 860px){
+    #wrapper{
+        grid-template-rows: 2fr 1fr;
+        grid-gap: 1em; 
+    }
+    #introduction #slideshow_para{
+        grid-column: 1/3;
+    }
+
+    #introduction #slideshow{
+        grid-column: 1/3;
+        justify-self: center;
+    }
+}
+
+@media(max-width: 768px){
+    header #branding, 
+    header nav, 
+    header nav li,
+    #newsletter h1,
+    #newsletter form,
+    #introduction #heading,
+    #introduction #slideshow_para{
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    header{
+        padding-bottom: 15px;
+    }
+
+    #newsletter button{
+        display: block;
+        width: 100%;
+    }
+
+    #newsletter form input[type="email"]{
+        width: 100%;
+        margin-bottom: 7px;
+    }
+}
+
+@media(max-width:384px){
+    #boxes .box{
+        float: none;
+        width: 75%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        height: 500px;
+    }
+}
+
+/* About Us */
+#guide_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media(max-width:950px){
+    #guide_grid{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+}
+
+/*Explore pages*/
+
+.description{
+  border-style:groove;
+  border-color: black;
+  border-radius: 25px;
+  margin: 40px 50px;
+  padding: 20px;
+  min-height: 375px;
+  background: url('../images/bg 2.png') no-repeat;
+  background-size: cover;
+  color: goldenrod;
+}
+
+.description h3{
+  font-size: 40px;
+  text-align: center;
+  border: outset;
+  background: url("../images/gold_bg.jpg") no-repeat;
+  background-size: cover;
+  color: black;
+}
+
+.description p{
+  font-size: 25px;
+}
+
+.description li{
+    font-size: 20px;
+    margin-left: 3%;
+}
+
+.description img{
+  float: right;
+  width:25%;
+  height:75%;
+  margin-left:15px;
+  border-radius: 10%;
+}
+
+#showcase3{
+    min-height: 450px;
+    background: url('../images/Shopping_bg.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 5%;
+    text-align: center;
+    border-bottom: goldenrod 3px solid;
+}
+
+#showcase3 h1{
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 55px;
+    color: #193300;
+}
+
+#showcase3 .highlight{
+    color: rgba(255, 183, 0, 0.945);
+    text-shadow: 5px 4px 5px #193300, 5px 4px 5px goldenrod;
+}
+
+#showcase3 p{
+    font-size: 20px;
+}
+
+/* Food */
+
+#showcase2{
+    min-height: 450px;
+    background: url('../images/aloo-chaat_bg.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 5%;
+    text-align: center;
+    border-bottom: goldenrod 3px solid;
+}
+
+#showcase2 h1{
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 55px;
+    color: #193300;
+}
+
+#showcase2 .highlight{
+    color: rgba(255, 183, 0, 0.945);
+    text-shadow: 5px 4px 5px #193300, 5px 4px 5px goldenrod;
+}
+
+#showcase2 p{
+    font-size: 20px;
+}
+
+.hoverable_grid{
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: 20px;
+    grid-auto-rows: minmax(200px,auto);
+}
+
+.hoverable{
+    position: relative;
+    width: 90%;
+    justify-self: center;
+}
+  
+.hoverable .image{
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    border-radius: 5%;
+    box-shadow: 0px 8px 16px 8px rgba(0,0,0,0.4);
+}
+
+.hoverable .middle{
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;	
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.hoverable:hover .image{
+    opacity: 0.3;
+}
+
+.hoverable:hover .middle{
+    opacity: 1;
+}
+
+.hoverable a:link {
+    color: gold;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+.hoverable a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.text{
+    background-color: #193300   ;
+    color: gold;
+    font-size: 25px;
+    padding: 16px 32px;
+}
+
+@media(max-width: 900px){
+    .hoverable_grid{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .text{
+        font-size: 20px;
+    }
+}
+
+/* Shopping */
+#showcase1{
+    min-height: 450px;
+    background: url('../images/Shopping_bg.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 5%;
+    text-align: center;
+    border-bottom: goldenrod 3px solid;
+}
+
+#showcase1 h1{
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 55px;
+    color: #193300;
+}
+
+#showcase1 .highlight{
+    color: rgba(255, 183, 0, 0.945);
+    text-shadow: 5px 4px 5px #193300, 5px 4px 5px goldenrod;
+}
+
+#showcase1 p{
+    font-size: 20px;
+}
+
+/* Heritage Walk */
+#showcase3{
+    min-height: 450px;
+    background: url('../images/red_fort_image.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 5%;
+    text-align: center;
+    border-bottom: goldenrod 3px solid;
+}
+
+#showcase3 h1{
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 55px;
+    color: #193300;
+}
+
+#showcase3 .highlight{
+    color: rgba(255, 183, 0, 0.945);
+    text-shadow: 5px 4px 5px #193300, 5px 4px 5px goldenrod;
+}
+
+#showcase3 p{
+    font-size: 20px;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Chandni Chowk</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Discover</span> &nbsp;Delhi</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li class="dropdown">
+                        <button class="dropbtn">EXPLORE</button>
+                        <div class="dropdown-content">
+                            <a href="shopping.html">Shopping</a>
+                            <a href="heritage_walk.html">Heritage walk</a>
+                            <a href="food.html">Food tour</a>
+                        </div>
+                    </li>
+                    <li><a href="aboutus.html">ABOUT US</a></li>
+                    <li class="current"><a href="register.html">REGISTER</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<br>
+<h1 class="hstyle"> Interested to explore Chandni Chowk? Fill the form below now to book a slot with our guides! </h1>
+<div class="form">
+    <form action="responses.html">
+        <label for="fname"> First Name: </label><br>
+        <input type="text" id="fname" placeholder="Please enter your name" required><br><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" placeholder="Please enter your surname" required><br><br>
+        Address:<br>
+        <textarea id="add" name="add" rows="8" cols="40" > </textarea><br><br>
+        Phone Number:<br>
+        <input type="tel" id="pnumber" placeholder="Please include country code" required><br>
+        <small> Format: Country code followed by phone number </small> <br><br>
+        Please select your preferred language for the tour: <br>
+        <input type="radio" id="Hindi" name="pref_language" value="Hindi">
+        <label for="hindi">Hindi</label><br>
+        <input type="radio" id="English" name="pref_language" value="English">
+        <label for="english">English</label><br>
+        <input type="radio" id="Tamil" name="pref_language" value="Tamil">
+        <label for="tamil">Tamil</label><br>
+        <input type="radio" id="Punjabi" name="pref_language" value="Punjabi">
+        <label for="punjabi">Punjabi</label><br><br>
+        Please choose your preferred time slot for the tour:<br>
+         <select name="time" id="time">
+            <option value="slot1">10:00AM-12PM</option>
+            <option value="slot2">12PM-2PM</option>
+            <option value="slot2">3PM-5PM</option>
+            <option value="slot2">5PM-7PM</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Save & Submit" class="button_1">
+    </form>
+    <br>
+    <form action="index.html"><input type= "submit" value="Cancel" class="button_1" onclick= "index.html"></form>
+</div>
+<footer>
+    <p>
+        <span id="contactus"><b>Contact Us:</b> <br> Email: discover_delhi@gmail.com <br> Phone: +91 99999 66666</span>
+        <span id="copyright">Discover Delhi, Copyright &copy; 2021</span>
+        <span id="last_updated">Last Updated: 03:30 06/08/2021</span>
+    </p>
+</footer>
+</body>
+</html>
