@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Chandni Chowk</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Discover</span> &nbsp;Delhi</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">HOME</a></li>
+                    <li class="dropdown">
+                        <button class="dropbtn">EXPLORE</button>
+                        <div class="dropdown-content">
+                            <a href="shopping.html">Shopping</a>
+                            <a href="heritage_walk.html">Heritage walk</a>
+                            <a href="food.html">Food tour</a>
+                        </div>
+                    </li>
+                    <li><a href="aboutus.html">ABOUT US</a></li>
+                    <li><a href="register.html">REGISTER</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <br>
+    <section class="solution">
+        <div class="currency-converter">
+            <div class="currency-heading">
+                <h1>Currency Converter</h1>
+            </div>
+            <div class="date"></div> 
+            <!-- The date is populated dynamically -->
+            <ul class="currencies">
+                <!-- list items of currencies displayed are of this form:
+                <li class="base-currency" id="USD">
+                    <img src="https://www.geonames.org/flags/l/us.gif" class="flag">
+                    <div class="info">
+                        <p class="input"><span class="currency-symbol">&#36;</span><input placeholder="0.0000"></p>
+                        <p class="currency-name">USD - US Dollar</p>
+                        <p class="base-currency-rate">1 USD = 1 USD</p>
+                    </div>
+                    <span class="close">&times;</span>
+                </li>-->
+            </ul>
+
+            <button class="add-currency-btn"><p>⬇</p>Add Currency</button>
+            <ul class="add-currency-list">
+                <!-- list items of the add currency list are of this form:
+                <li data-currency="USD" class="disabled"><img src="https://www.geonames.org/flags/l/us.gif" class="flag"><span>USD - US Dollar</span></li>
+                <li data-currency="INR"><img src="https://www.geonames.org/flags/l/in.gif" class="flag"><span>INR - Indian Rupee</span></li>-->
+            </ul>
+            
+        </div>
+    </section>
+    
+    <script src="./css/script.js"></script>
+</body>
+
+<footer>
+    <p>
+        <span id="contactus"><b>Contact Us:</b> <br> Email: discover_delhi@gmail.com <br> Phone: +91 99999 66666</span>
+        <span id="copyright">Discover Delhi, Copyright &copy; 2021</span>
+        <span id="last_updated">Last Updated: 03:30 06/08/2021</span>
+    </p>
+</footer>
+</html>
