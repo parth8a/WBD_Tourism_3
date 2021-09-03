@@ -3,14 +3,14 @@
 const addCurrencyBtn = document.querySelector(".add-currency-btn");
 const addCurrencyList = document.querySelector(".add-currency-list");
 const currenciesList = document.querySelector(".currencies");
-// const dataURL = "http://api.exchangeratesapi.io/v1/latest";
+const dataURL = "http://api.exchangeratesapi.io/v1/latest?access_key=07702c0300e6b5d223cc9840fe7b8d1c";
 
 const initiallyDisplayedCurrencies = ["INR", "USD", "JPY", "TRY", "CAD"];
 let baseCurrency;
 let baseCurrencyAmount;
 
 
-const currencies = [
+let currencies = [
     {
         name: "US Dollar",
         abbreviation: "USD",
@@ -335,18 +335,22 @@ function newCurrenciesListItem(currency){
             <div class="info">
                 <p class="input"><span class="currency-symbol">${currency.symbol}</span><input placeholder="0.000" value=${inputValue}></p>
                 <p class="currency-name">${currency.abbreviation} - ${currency.name}</p>
-                <p class="base-currency-rate">${baseCurrency} = ${exchangeRate} ${currency.abbreviation}</p>
+                <p class="base-currency-rate">1 ${baseCurrency} = ${exchangeRate} ${currency.abbreviation}</p>
             </div>
             <span class="close">&times;</span>
         </li>`
     );
 }
 
-// fetch(dataURL)
-//     .then(res=> res.json())
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err));
-
-populateAddCurrencyList();
-
-populateCurrenciesList();
+// Fetching the currency data using exchange rates API
+fetch(dataURL)
+    .then(res=> res.json())
+    .then(data => {
+        document.querySelector(".date").textContent = data.date.split("-").reverse().join("/");
+        data.rates["EUR"] = 1;
+        currencies = currencies.filter(currency => data.rates[currency.abbreviation]);
+        currencies.forEach(currency => currency.rate = data.rates[currency.abbreviation]);
+        populateAddCurrencyList();
+        populateCurrenciesList();
+    })
+    .catch(err => console.log(err));

@@ -25,41 +25,61 @@
                     </li>
                     <li><a href="aboutus.html">ABOUT US</a></li>
                     <li><a href="register.html">REGISTER</a></li>
+                    <li><a href="solution.html">SOLUTION</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <br>
+    <div id="solution_heading"><h1>Worried about how much your trip will cost?</h1> <h1>Why worry when you can use our <span class="highlight">currency converter tool! </span></h1></div>
+    <div class="click_here_to_know_more">
+        <a href="#animation">Click here to know how to use the tool!</a>
+    </div>
     <section class="solution">
-        <div class="currency-converter">
-            <div class="currency-heading">
-                <h1>Currency Converter</h1>
+        <section class="theTool">
+            <div class="currency-converter">
+                <div class="currency-heading">
+                    <h1>Currency Converter</h1>
+                </div>
+                <div class="date"></div> 
+                <!-- The date is populated dynamically -->
+                <ul class="currencies">
+                    <!-- list items of currencies displayed are of this form:
+                    <li class="base-currency" id="USD">
+                        <img src="https://www.geonames.org/flags/l/us.gif" class="flag">
+                        <div class="info">
+                            <p class="input"><span class="currency-symbol">&#36;</span><input placeholder="0.0000"></p>
+                            <p class="currency-name">USD - US Dollar</p>
+                            <p class="base-currency-rate">1 USD = 1 USD</p>
+                        </div>
+                        <span class="close">&times;</span>
+                    </li>-->
+                </ul>
+    
+                <button class="add-currency-btn"><p>⬇</p>Add Currency</button>
+                <ul class="add-currency-list">
+                    <!-- list items of the add currency list are of this form:
+                    <li data-currency="USD" class="disabled"><img src="https://www.geonames.org/flags/l/us.gif" class="flag"><span>USD - US Dollar</span></li>
+                    <li data-currency="INR"><img src="https://www.geonames.org/flags/l/in.gif" class="flag"><span>INR - Indian Rupee</span></li>-->
+                </ul>  
             </div>
-            <div class="date"></div> 
-            <!-- The date is populated dynamically -->
-            <ul class="currencies">
-                <!-- list items of currencies displayed are of this form:
-                <li class="base-currency" id="USD">
-                    <img src="https://www.geonames.org/flags/l/us.gif" class="flag">
-                    <div class="info">
-                        <p class="input"><span class="currency-symbol">&#36;</span><input placeholder="0.0000"></p>
-                        <p class="currency-name">USD - US Dollar</p>
-                        <p class="base-currency-rate">1 USD = 1 USD</p>
-                    </div>
-                    <span class="close">&times;</span>
-                </li>-->
-            </ul>
-
-            <button class="add-currency-btn"><p>⬇</p>Add Currency</button>
-            <ul class="add-currency-list">
-                <!-- list items of the add currency list are of this form:
-                <li data-currency="USD" class="disabled"><img src="https://www.geonames.org/flags/l/us.gif" class="flag"><span>USD - US Dollar</span></li>
-                <li data-currency="INR"><img src="https://www.geonames.org/flags/l/in.gif" class="flag"><span>INR - Indian Rupee</span></li>-->
-            </ul>
-            
-        </div>
+        </section>
     </section>
     
+    <div class="how-to-use">
+        <div class="instruction">
+            <p>How to use the converter tool:</p>
+            <ol>
+                <li>Enter the price of our packages (or other values) in the INR box, and get the relevant currency conversion* for the currency you prefer.</li>
+                <li>If your currency is not in your list, click on add currency and select your preferred currency</li>
+                <li>If you want to check how much of your preferred currency is worth in INR (or any other currency), select the currency, enter a value.</li>
+                <li>Voila! Check the INR box for the rate in INR.</li>
+            </ol>
+            <p>*The base exchange rates are provided below the input bar for each currency. These rates are updated daily to account for any price fluctuations and to provide the most accurate conversion.</p>
+        </div>
+        <div id="animation"><img src="./images/animation.gif" alt="how to use the converter tool" /></div>
+    </div>
+
     <script src="./css/script.js"></script>
 </body>
 
