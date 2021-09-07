@@ -1,15 +1,16 @@
-//For cleaner code, the following abbreviations have been used: Base Currency = BC
+//COMMENTS
+//For cleaner code, the following abbreviations have been used: Base Currency = BC, event = e,
+// The decimal limit has been placed at 3. So all values for the currencies will be rounded up to 3 decimal places.
 
-//Global variable
-
-const addCurrencyButton = document.querySelector(".add-currency-btn");
-const addCurrencyList = document.querySelector(".add-currency-list");
+//GLOBAL VARIABLES
 const currenciesList = document.querySelector(".currencies");
+const addCurrencyList = document.querySelector(".add-currency-list");
+const addCurrencyButton = document.querySelector(".add-currency-btn");
 const dataURL = "http://api.exchangeratesapi.io/v1/latest?access_key=07702c0300e6b5d223cc9840fe7b8d1c";
 
 const initiallyDisplayedCurrencies = ["INR", "USD", "JPY", "TRY", "CAD"];
-let baseCurrency;
-let baseCurrencyAmount;
+let BC;
+let BCAmount;
 
 
 let currencies = [
@@ -213,13 +214,14 @@ let currencies = [
     }
 ];
 
-//Event Listeners
+//EVENT LISTENERS
 
-addCurrencyButton.addEventListener('click', (event) => addCurrencyButton.classList.toggle("open"));
+//Open add currency list event
+addCurrencyButton.addEventListener('click', (e) => addCurrencyButton.classList.toggle("open"));
 
-//---To add a currency from the Add Currency List
-addCurrencyList.addEventListener('click', (event) =>{
-    const clickedItem = event.target.closest("li");
+//Add currency event: To add a currency from the Add Currency List
+addCurrencyList.addEventListener('click', (e) =>{
+    const clickedItem = e.target.closest("li");
     //proceeding only if the item is not disabled
     if(!clickedItem.classList.contains("disabled")){
         const newCurrency = currencies.find(c => c.abbreviation === clickedItem.getAttribute("data-currency"));
@@ -227,132 +229,137 @@ addCurrencyList.addEventListener('click', (event) =>{
     }
 });
 
-currenciesList.addEventListener('click', currenciesListClick);
+//Currency list new input event: When there is a new input in the currency list
+currenciesList.addEventListener('input', e => {
+    const selectedCurrency = e.target.closest("li");
+    //Checking if the input is in a new currency
+    if(selectedCurrency.id!==BC){
+        //Changing base currency
+        currenciesList.querySelector(`#${BC}`).classList.remove("base-currency");
+        setNewBC(selectedCurrency);
+    }
+    //Checking if the input is valid. If not, then the amount is 0, and if it is valid, then it is converted to number format.
+    const newBCAmount = isNaN(e.target.value) ? 0 : Number(e.target.value);
+    //Changes in values displayed
+    if(BCAmount!==newBCAmount || selectedCurrency.id!==BC){
+        BCAmount = newBCAmount;
+        const BCRate = currencies.find(c => c.abbreviation === BC).rate;
+        currenciesList.querySelectorAll(".currency").forEach(listedCurrency => {
+            //We don't want the value of the active input field to be modified, hence the if condition.
+            if(listedCurrency.id!==BC){
+                const currRate = currencies.find(c => c.abbreviation===listedCurrency.id).rate;
+                const exchRate = listedCurrency.id===BC ? 1 : (currRate/BCRate).toFixed(4);
+                listedCurrency.querySelector("input").value = exchRate*BCAmount!==0 ? (exchRate*BCAmount).toFixed(3) : "";
+            }
+        });
+    }
+})
 
-function currenciesListClick(event){
-    if(event.target.classList.contains("close")){
+//Remove Currency event: When the cross button is clicked on the currency listed in the currencies' list.
+currenciesList.addEventListener('click', e => {
+    if(e.target.classList.contains("close")){
         //The parentnode of the close button is the list item (the listed currency)
-        const listedCurrency = event.target.parentNode;
+        const listedCurrency = e.target.parentNode;
         listedCurrency.remove();
         addCurrencyList.querySelector(`[data-currency=${listedCurrency.id}]`).classList.remove("disabled");
         //if the currency removed was the base currency (mainly Indian Rupee) then changing the base currency
         if(listedCurrency.classList.contains("base-currency")){
-            const newBaseCurrency = currenciesList.querySelector(".currency");
-            if(newBaseCurrency){
-                setNewBaseCurrency(newBaseCurrency);
-                baseCurrencyAmount = Number(newBaseCurrency.querySelector("input").value);
+            const newBC = currenciesList.querySelector(".currency");
+            if(newBC){
+                setNewBC(newBC);
+                BCAmount = Number(newBC.querySelector("input").value);
             }
         }
     }
-}
+})
 
-//setting new base currency
+// Click FocusOut event: Adding a FocusOut event to the visible currencies list when the mouse is clicked outside
+currenciesList.addEventListener('focusout', e => {
+    const inputVal = e.target.value;
+    if(isNaN(inputVal) || Number(inputVal)===0 ) e.target.value="";
+    else {e.target.value = Number(inputVal).toFixed(3)};
+})
 
-function setNewBaseCurrency(newBaseCurrency){
-    newBaseCurrency.classList.add("base-currency");
-    baseCurrency = newBaseCurrency.id;
-    const baseCurrencyRate = currencies.find(c => c.abbreviation === baseCurrency).rate;
-    currenciesList.querySelectorAll(".currency").forEach(listedCurrency => {
-        const currencyRate = currencies.find(c => c.abbreviation===listedCurrency.id).rate;
-        const exchangeRate = listedCurrency.id===baseCurrency ? 1 : (currencyRate/baseCurrencyRate).toFixed(4);
-        listedCurrency.querySelector(".base-currency-rate").textContent = `1 ${baseCurrency} = ${exchangeRate} ${listedCurrency.id}`;
-    });
-}
+// Enter FocusOut event: To make the FocusOut event work when the user presses enter
+currenciesList.addEventListener('keydown', (e)=> {if(e.key==="Enter") e.target.blur()});
 
-currenciesList.addEventListener('input', currenciesListNewInput);
-
-function currenciesListNewInput(event){
-    const selectedCurrency = event.target.closest("li");
-    //Checking if the input is in a new currency
-    if(selectedCurrency.id!==baseCurrency){
-        //Changing base currency
-        currenciesList.querySelector(`#${baseCurrency}`).classList.remove("base-currency");
-        setNewBaseCurrency(selectedCurrency);
-    }
-    //Checking if the input is valid and converting it to number
-    const newBaseCurrencyAmount = isNaN(event.target.value) ? 0 : Number(event.target.value);
-    //Changes in values displayed
-    if(baseCurrencyAmount!==newBaseCurrencyAmount || selectedCurrency.id!==baseCurrency){
-        baseCurrencyAmount = newBaseCurrencyAmount;
-        const baseCurrencyRate = currencies.find(c => c.abbreviation === baseCurrency).rate;
-        currenciesList.querySelectorAll(".currency").forEach(listedCurrency => {
-            //We don't want the value of the active input field to be modified, hence the if condition
-            if(listedCurrency.id!==baseCurrency){
-                const currencyRate = currencies.find(c => c.abbreviation===listedCurrency.id).rate;
-                const exchangeRate = listedCurrency.id===baseCurrency ? 1 : (currencyRate/baseCurrencyRate).toFixed(4);
-                listedCurrency.querySelector("input").value = exchangeRate*baseCurrencyAmount!==0 ? (exchangeRate*baseCurrencyAmount).toFixed(3) : "";
-            }
-        });
-    }
-}
-
-currenciesList.addEventListener('focusout',currenciesListFocusOut);
-
-function currenciesListFocusOut(event){
-    const inputVal = event.target.value;
-    if(Number(inputVal)===0 || isNaN(inputVal)) event.target.value="";
-    else {event.target.value = Number(inputVal).toFixed(3)};
-}
-// To make the FocusOut event work when the user presses enter
-currenciesList.addEventListener('keydown', (event)=> {if(event.key==="Enter") event.target.blur()});
-
-// Auxiliary Functions
-
-//Function to populate the Add Currencies List
-function populateAddCurrencyList(){
-    currencies.forEach(function(currency){
-        addCurrencyList.insertAdjacentHTML(
-            "beforeend", 
-            `<li data-currency=${currency.abbreviation}>
-                <img src=${currency.flagURL} class="flag"><span>${currency.abbreviation} - ${currency.name}</span>
-            </li>`
-        )
-    });
-}
-
+// MAIN FUNCTIONS (Populating the two lists, adding a currency, setting a new base currency and fetching data from API.)
 
 //Function to populate the inital currency list visible to the user
 function populateCurrenciesList(){
     initiallyDisplayedCurrencies.forEach(function(cur){
-        const currency = currencies.find(c => c.abbreviation===cur);
-        if(currency) newCurrenciesListItem(currency);
+        const curr = currencies.find(c => c.abbreviation===cur);
+        if(curr) newCurrenciesListItem(curr);
+    });
+}
+
+//Function to populate the Add Currencies List
+
+function populateAddCurrencyList(){
+    currencies.forEach(function(curr){
+        addCurrencyList.insertAdjacentHTML(
+            "beforeend", 
+            `<li data-currency=${curr.abbreviation}>
+            <img src=${curr.flagURL} class="flag"><span>${curr.abbreviation} - ${curr.name}</span>
+            </li>`
+        )
+    });
+}
+    
+//Setting new base currency (BC)
+
+function setNewBC(newBC){
+    newBC.classList.add("base-currency");
+    BC = newBC.id;
+    const BCRate = currencies.find(c => c.abbreviation === BC).rate;
+    currenciesList.querySelectorAll(".currency").forEach(listedCurrency => {
+        const currencyRate = currencies.find(c => c.abbreviation===listedCurrency.id).rate;
+        const exchangeRate = listedCurrency.id===BC ? 1 : (currencyRate/BCRate).toFixed(4);
+        listedCurrency.querySelector(".base-currency-rate").textContent = `1 ${BC} = ${exchangeRate} ${listedCurrency.id}`;
     });
 }
 
 //Function that will add currencies to the currency list
-function newCurrenciesListItem(currency){
-    if(currenciesList.childElementCount===0){
-        baseCurrency = currency.abbreviation
-        baseCurrencyAmount = 0;
-    }
-    addCurrencyList.querySelector(`[data-currency=${currency.abbreviation}]`).classList.add("disabled");
-    const baseCurrencyRate = currencies.find(c => c.abbreviation===baseCurrency).rate;
-    const exchangeRate = currency.abbreviation===baseCurrency ? 1 : (currency.rate/baseCurrencyRate).toFixed(3);
-    const inputValue = baseCurrencyAmount ? (baseCurrencyAmount*exchangeRate).toFixed(3) : "";
 
+function newCurrenciesListItem(curr){
+    //If the currency is the first currency in the currencies list
+    if(currenciesList.childElementCount===0){
+        BC = curr.abbreviation
+        BCAmount = 0;
+    }
+    addCurrencyList.querySelector(`[data-currency=${curr.abbreviation}]`).classList.add("disabled");
+    const BCRate = currencies.find(c => c.abbreviation===BC).rate;
+    const exchangeRate = curr.abbreviation===BC ? 1 : (curr.rate/BCRate).toFixed(3);
+    const inputValue = BCAmount ? (BCAmount*exchangeRate).toFixed(3) : "";
+    //Adding HTML (using insertAdjacentHTML to avoid possible corruption)
     currenciesList.insertAdjacentHTML(
         "beforeend",
-        `<li class="currency ${currency.abbreviation===baseCurrency ? "base-currency" : ""}" id=${currency.abbreviation}>
-            <img src=${currency.flagURL} class="flag">
-            <div class="info">
-                <p class="input"><span class="currency-symbol">${currency.symbol}</span><input placeholder="0.000" value=${inputValue}></p>
-                <p class="currency-name">${currency.abbreviation} - ${currency.name}</p>
-                <p class="base-currency-rate">1 ${baseCurrency} = ${exchangeRate} ${currency.abbreviation}</p>
-            </div>
-            <span class="close">&times;</span>
+        `<li class="currency ${curr.abbreviation===BC ? "base-currency" : ""}" id=${curr.abbreviation}>
+        <img src=${curr.flagURL} class="flag">
+        <div class="info">
+        <p class="input"><span class="currency-symbol">${curr.symbol}</span><input placeholder="0.000" value=${inputValue}></p>
+        <p class="currency-name">${curr.abbreviation} - ${curr.name}</p>
+        <p class="base-currency-rate">1 ${BC} = ${exchangeRate} ${curr.abbreviation}</p>
+        </div>
+        <span class="close">&times;</span>
         </li>`
     );
 }
 
 // Fetching the currency data using exchange rates API
 fetch(dataURL)
-    .then(res=> res.json())
-    .then(data => {
-        document.querySelector(".date").textContent = data.date.split("-").reverse().join("/");
-        data.rates["EUR"] = 1;
-        currencies = currencies.filter(currency => data.rates[currency.abbreviation]);
-        currencies.forEach(currency => currency.rate = data.rates[currency.abbreviation]);
-        populateAddCurrencyList();
-        populateCurrenciesList();
-    })
-    .catch(err => console.log(err));
+.then(res=> res.json())
+.then(data => {
+    //converting date to day/month/year format
+    document.querySelector(".date").textContent = data.date.split("-").reverse().join("/");
+    //EUR is the base currency of the API
+    data.rates["EUR"] = 1;
+    //fetching data only for currencies that are in our list
+    currencies = currencies.filter(currency => data.rates[currency.abbreviation]);
+    currencies.forEach(currency => currency.rate = data.rates[currency.abbreviation]);
+    //Calling the populate list functions
+    populateAddCurrencyList();
+    populateCurrenciesList();
+})
+//To log error
+.catch(err => console.log(err));
