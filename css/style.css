@@ -784,6 +784,7 @@ footer #last_updated{
     font-size: 25px;
     font-style: italic;
     font-weight: 700;
+    background-color: #fffcc7;
 }
 
 .click_here_to_know_more a{
@@ -815,6 +816,7 @@ footer #last_updated{
     text-align: center;
     margin-bottom: 5%;
     padding: 10px;
+    text-shadow:3px 3px 3px #102000;
     border: goldenrod 3px solid;
     border-radius: 10px;
 }
@@ -1035,6 +1037,15 @@ ul.add-currency-list li span{
         grid-template-columns: 1fr;
         justify-items: center;
         line-height: 30px;
+    }
+    body{
+        background-color: #fffcc7;
+    }
+    header{
+        background: #204200;
+    }
+    .click_here_to_know_more{
+        background-color: #fffa9a;
     }
 }
 
