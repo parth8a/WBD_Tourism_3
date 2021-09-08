@@ -1,18 +1,53 @@
 //COMMENTS
-//For cleaner code, the following abbreviations have been used: Base Currency = BC, event = e,
+//For cleaner code, the following abbreviations have been used: Base Currency = BC, event = e, currency = curr
 // The decimal limit has been placed at 3. So all values for the currencies will be rounded up to 3 decimal places.
 
 //GLOBAL VARIABLES
 const currenciesList = document.querySelector(".currencies");
 const addCurrencyList = document.querySelector(".add-currency-list");
 const addCurrencyButton = document.querySelector(".add-currency-btn");
+const rateTable = document.querySelector(".rate-table");
+const radioButtons = document.querySelector("input[type=radio]");
 const dataURL = "http://api.exchangeratesapi.io/v1/latest?access_key=07702c0300e6b5d223cc9840fe7b8d1c";
 
+//Initially displayed currencies and their currency info
 const initiallyDisplayedCurrencies = ["INR", "USD", "JPY", "TRY", "CAD"];
+const currencyInfo = {
+    "INR": {
+        name: "Indian Rupee",
+        abbreviation: "INR",
+        symbol: "\u20B9",
+        flagURL: "http://www.geonames.org/flags/l/in.gif",
+    },
+    "USD": {
+        name: "US Dollar",
+        abbreviation: "USD",
+        symbol: "\u0024",
+        flagURL: "https://www.geonames.org/flags/l/us.gif",
+    },
+    "JPY": {
+        name: "Japanese Yen",
+        abbreviation: "JPY",
+        symbol: "\u00A5",
+        flagURL: "http://www.geonames.org/flags/l/jp.gif",
+    },
+    "TRY": {
+        name: "Turkish Lira",
+        abbreviation: "TRY",
+        symbol: "\u20BA",
+        flagURL: "http://www.geonames.org/flags/l/tr.gif"
+    },
+    "CAD": {
+        name: "Canadian Dollar",
+        abbreviation: "CAD",
+        symbol: "\u0024",
+        flagURL: "http://www.geonames.org/flags/l/ca.gif"
+    }
+}
+
+//Base currency variable and currencies array with info for all currencies (to which rate will be added from the API)
 let BC;
 let BCAmount;
-
-
 let currencies = [
     {
         name: "Indian Rupee",
@@ -220,14 +255,16 @@ let currencies = [
 addCurrencyButton.addEventListener('click', (e) => addCurrencyButton.classList.toggle("open"));
 
 //Add currency event: To add a currency from the Add Currency List
-addCurrencyList.addEventListener('click', (e) =>{
+addCurrencyList.addEventListener('click', addCurrency)
+
+function addCurrency(e){
     const clickedItem = e.target.closest("li");
     //proceeding only if the item is not disabled
     if(!clickedItem.classList.contains("disabled")){
         const newCurrency = currencies.find(c => c.abbreviation === clickedItem.getAttribute("data-currency"));
         if(newCurrency) newCurrenciesListItem(newCurrency);
     }
-});
+};
 
 //Currency list new input event: When there is a new input in the currency list
 currenciesList.addEventListener('input', e => {
@@ -248,7 +285,7 @@ currenciesList.addEventListener('input', e => {
             //We don't want the value of the active input field to be modified, hence the if condition.
             if(listedCurrency.id!==BC){
                 const currRate = currencies.find(c => c.abbreviation===listedCurrency.id).rate;
-                const exchRate = listedCurrency.id===BC ? 1 : (currRate/BCRate).toFixed(4);
+                const exchRate = listedCurrency.id===BC ? 1 : (currRate/BCRate).toFixed(3);
                 listedCurrency.querySelector("input").value = exchRate*BCAmount!==0 ? (exchRate*BCAmount).toFixed(3) : "";
             }
         });
@@ -260,15 +297,20 @@ currenciesList.addEventListener('click', e => {
     if(e.target.classList.contains("close")){
         //The parentnode of the close button is the list item (the listed currency)
         const listedCurrency = e.target.parentNode;
-        listedCurrency.remove();
-        addCurrencyList.querySelector(`[data-currency=${listedCurrency.id}]`).classList.remove("disabled");
-        //if the currency removed was the base currency (mainly Indian Rupee) then changing the base currency
-        if(listedCurrency.classList.contains("base-currency")){
-            const newBC = currenciesList.querySelector(".currency");
-            if(newBC){
-                setNewBC(newBC);
-                BCAmount = Number(newBC.querySelector("input").value);
+        if(listedCurrency.id!=="INR"){
+            listedCurrency.remove();
+            addCurrencyList.querySelector(`[data-currency=${listedCurrency.id}]`).classList.remove("disabled");
+            //if the currency removed was the base currency (mainly Indian Rupee) then changing the base currency
+            if(listedCurrency.classList.contains("base-currency")){
+                const newBC = currenciesList.querySelector(".currency");
+                if(newBC){
+                    setNewBC(newBC);
+                    BCAmount = Number(newBC.querySelector("input").value);
+                }
             }
+        }
+        else{
+            alert("Cannot remove the Indian currency.")
         }
     }
 })
@@ -283,7 +325,57 @@ currenciesList.addEventListener('focusout', e => {
 // Enter FocusOut event: To make the FocusOut event work when the user presses enter
 currenciesList.addEventListener('keydown', (e)=> {if(e.key==="Enter") e.target.blur()});
 
-// MAIN FUNCTIONS (Populating the two lists, adding a currency, setting a new base currency and fetching data from API.)
+// Radio Button Click event: Making the currency that is selected in the Rates Table as the base currency in the converter
+function radio(currencyId) {
+    if(document.getElementById(currencyId).checked){
+        if(!currenciesList.querySelector(`#${currencyId}`)){
+            const curr = currencies.find(c => c.abbreviation==currencyId)
+            newCurrenciesListItem(curr)
+        }
+        const listedCurrency = currenciesList.querySelector(`#${currencyId}`);
+        if(!listedCurrency.classList.contains("prev")){
+            const prevBC = currenciesList.querySelector(".base-currency");
+            prevBC.classList.remove("prev");
+            prevBC.classList.remove("base-currency");
+            setNewBC(listedCurrency);
+            listedCurrency.classList.add("prev")
+        }
+    }
+};
+
+// MAIN FUNCTIONS (Creating and Populating the Rate Table and the two lists, adding a currency, setting a new base currency and fetching data from API.)
+
+//Creating Rate table: Adding row elements
+function radio2() {
+    for(let currencyId in currencyInfo){
+        const newtr = document.createElement("tr");
+        const radioInput = document.createElement("input");
+        const tdCurrency = document.createElement("td");
+        const tdCurrencyAbb = document.createElement("td");
+        const tdExchangeRate = document.createElement("td");
+        radioInput.type = "radio";
+        radioInput.name = "currency";
+        radioInput.id= currencyId;
+        radioInput.onchange = () => radio(currencyId);
+        const currencyName = document.createTextNode(currencyInfo[currencyId].name);
+        tdCurrencyAbb.textContent=currencyId;
+        tdCurrency.append(radioInput, currencyName);
+        newtr.append(tdCurrency, tdCurrencyAbb, tdExchangeRate);
+        rateTable.append(newtr);
+    }
+}
+
+radio2();
+
+// Populating the Rate table of the exchange rates
+function populateRateTable() {
+    const INRRate = currencies.find(c => c.abbreviation==="INR").rate;
+    for(var i = 1; i < rateTable.rows.length ; i++){
+        const curr = currencies.find(c => c.abbreviation=== rateTable.rows[i].cells[1].innerHTML);
+        const exchangeRate = (curr.rate/INRRate).toFixed(3);
+        rateTable.rows[i].cells[2].innerHTML = `1 INR = ${exchangeRate} ${curr.abbreviation}`;
+    }
+}
 
 //Function to populate the inital currency list visible to the user
 function populateCurrenciesList(){
@@ -314,7 +406,7 @@ function setNewBC(newBC){
     const BCRate = currencies.find(c => c.abbreviation === BC).rate;
     currenciesList.querySelectorAll(".currency").forEach(listedCurrency => {
         const currencyRate = currencies.find(c => c.abbreviation===listedCurrency.id).rate;
-        const exchangeRate = listedCurrency.id===BC ? 1 : (currencyRate/BCRate).toFixed(4);
+        const exchangeRate = listedCurrency.id===BC ? 1 : (currencyRate/BCRate).toFixed(3);
         listedCurrency.querySelector(".base-currency-rate").textContent = `1 ${BC} = ${exchangeRate} ${listedCurrency.id}`;
     });
 }
@@ -346,6 +438,7 @@ function newCurrenciesListItem(curr){
     );
 }
 
+
 // Fetching the currency data using exchange rates API
 fetch(dataURL)
 .then(res=> res.json())
@@ -360,6 +453,7 @@ fetch(dataURL)
     //Calling the populate list functions
     populateAddCurrencyList();
     populateCurrenciesList();
+    populateRateTable();
 })
-//To log error
+// To log error
 .catch(err => console.log(err));

@@ -775,10 +775,6 @@ footer #last_updated{
     text-shadow:2px 2px 2px goldenrod;
 }
 
-.solution{
-    display: grid;
-}
-
 .click_here_to_know_more{
     text-align: center;
     font-size: 25px;
@@ -831,6 +827,59 @@ footer #last_updated{
     width: auto;
 }
 
+/* Rate Table and Converter tool grid */
+.solution{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    justify-items: center;
+}
+
+/* Rate table */
+.exchange-table h1{
+    background-color: #1e3d00;
+    font-size: 30px;
+    color: #DAA520;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 0;
+    border: goldenrod 3px solid;
+    border-bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.rate-table{
+    border:goldenrod 3px solid;
+    border-radius: 10px;
+    border-collapse: collapse;
+    font-size: 20px;
+    color: #f1f1f1;
+    /* padding: 15px; */
+    background-color: #213f00;
+}
+
+.rate-table td,th{
+    padding: 10px;
+    border-right: goldenrod 3px solid;
+}
+
+.rate-table th{
+    background-color: #193300;
+    color: goldenrod;
+}
+
+.rate-table tr td:nth-child(2){
+    text-align: center;
+}
+
+.rate-table tr:nth-child(odd){
+    background-color: #193300;
+}
+
+/* The converter tool */
 .theTool *{
     margin: 0;
     padding: 0;
@@ -886,6 +935,10 @@ ul.currencies li{
 
 ul.currencies li:last-child{
     margin-bottom: 0;
+}
+
+ul.currencies li:first-child .close:hover{
+    cursor: not-allowed;
 }
 
 ul.currencies li.base-currency{
@@ -1030,6 +1083,14 @@ ul.add-currency-list li span{
 .add-currency-btn.open + ul.add-currency-list li.disabled:hover{
     background-color: #ddd;
     cursor: not-allowed;
+}
+
+/* Media queries for solution */
+
+@media(max-width:1336px){
+    .solution{
+        grid-template-columns: 1fr;
+    }
 }
 
 @media(max-width:1000px){
