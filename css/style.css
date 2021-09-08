@@ -423,6 +423,10 @@ footer #last_updated{
     font-size:20;
 }
 
+#price{
+    font-size: 25px;
+}
+
 /*responses*/
 .message{
     margin-left: 3em; 
@@ -441,6 +445,7 @@ footer #last_updated{
     margin-right: 3em; 
     font-size:1.8em; 
     font-weight: bold;
+    text-align: center;
 }
         
 .parac{
@@ -665,7 +670,7 @@ footer #last_updated{
     opacity: 0;
     position: absolute;
     top: 50%;
-    left: 50%;	
+    left: 50%;  
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
@@ -761,6 +766,7 @@ footer #last_updated{
 #showcase3 p{
     font-size: 20px;
 }
+
 
 /* Solution (Currency Coverter)*/
 
@@ -1123,4 +1129,70 @@ ul.add-currency-list li span{
     .add-currency-btn.open + ul.add-currency-list{display: block; height: calc(100vh - 131px);}
     .add-currency-btn p{left: 25%; top:0.65rem;}
     .how-to-use #animation img{max-width: 335px;}
+}
+
+.newpages{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.show-btn{
+    background: pink;
+    font-size: 20px;
+    color: white;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+}
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: pink;
+    padding: 1rem 1.5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+}
+.close-button {
+    float: right;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+}
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+}
+
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#results{
+    font-size: large;
+    text-align: center;
+}
+
+.visitors{
+    font-size: 25px
+    font-weight
 }

@@ -441,7 +441,7 @@ function newCurrenciesListItem(curr){
 }
 
 
-// Fetching the currency data using exchange rates API
+// // Fetching the currency data using exchange rates API
 fetch(dataURL)
 .then(res=> res.json())
 .then(data => {
