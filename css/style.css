@@ -1116,10 +1116,11 @@ ul.add-currency-list li span{
     .currency-heading h1{font-size: 2rem;}
     .flag{width: 3rem; height: 2rem;}
     .info .input span {font-size: 1.25rem; width: 3.5rem;}
-    .info .input input{font-size: 1.25rem; width: 76%;}
+    .info .input input{font-size: 1.25rem; width: 70%;}
     .info .currency-name {margin-left: 3.5rem;}
     .info .base-currency-rate {margin-left: 3.5rem;}
-    ul.add-currency-list {bottom: 48px; height: calc(100vh - 131px);}
+    ul.add-currency-list {bottom: 48px;}
+    .add-currency-btn.open + ul.add-currency-list{display: block; height: calc(100vh - 131px);}
     .add-currency-btn p{left: 25%; top:0.65rem;}
     .how-to-use #animation img{max-width: 335px;}
 }
