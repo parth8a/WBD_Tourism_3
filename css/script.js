@@ -328,10 +328,12 @@ currenciesList.addEventListener('keydown', (e)=> {if(e.key==="Enter") e.target.b
 // Radio Button Click event: Making the currency that is selected in the Rates Table as the base currency in the converter
 function radio(currencyId) {
     if(document.getElementById(currencyId).checked){
+        //Adding the currency to the list if it has been removed by the user
         if(!currenciesList.querySelector(`#${currencyId}`)){
             const curr = currencies.find(c => c.abbreviation==currencyId)
             newCurrenciesListItem(curr)
         }
+        //Setting it to base currency
         const listedCurrency = currenciesList.querySelector(`#${currencyId}`);
         if(!listedCurrency.classList.contains("prev")){
             const prevBC = currenciesList.querySelector(".base-currency");
